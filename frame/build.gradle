@@ -1,0 +1,74 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+def DEV_BASE_URL = "http://192.168.3.99:8080"
+def STG_BASE_URL = "http://192.168.3.99:8080"
+def PRO_BASE_URL = "http://192.168.3.99:8080"
+
+android {
+    compileSdk deps.versions.compileSdk.get().toInteger()
+
+    defaultConfig {
+        minSdk deps.versions.minSdk.get().toInteger()
+        targetSdk deps.versions.targetSdk.get().toInteger()
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    flavorDimensions('default')
+
+    productFlavors {
+        development {
+            dimension 'default'
+            buildConfigField 'String', 'BASE_URL', '"' + DEV_BASE_URL + '"'
+        }
+
+        staging {
+            dimension 'default'
+            buildConfigField 'String', 'BASE_URL', '"' + STG_BASE_URL + '"'
+        }
+
+        production {
+            dimension 'default'
+            buildConfigField 'String', 'BASE_URL', '"' + PRO_BASE_URL + '"'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    api deps.moshi
+    api deps.glide
+    api deps.mmkv
+    api deps.material
+    api deps.liveeventbus
+    api deps.bundles.log
+    api deps.bundles.coroutines
+    api deps.bundles.retrofit
+    api deps.bundles.lifecycle
+    api deps.bundles.androidx
+    api deps.bundles.bindingcollectionadapter2
+    kapt deps.bundles.kapts
+    implementation deps.bundles.hilt
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
