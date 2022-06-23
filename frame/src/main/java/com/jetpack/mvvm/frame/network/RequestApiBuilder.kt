@@ -5,7 +5,7 @@ package com.jetpack.mvvm.frame.network
  * @CreateDate: 2022-06-22
  * @Email: wangxing1@gwm.cn
  */
-class RetrofitCoroutineBuilder<T> {
+class RequestApiBuilder<T> {
 
     internal lateinit var api: (suspend () -> ApiResponse<T>)
         private set

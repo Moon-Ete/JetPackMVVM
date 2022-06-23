@@ -2,7 +2,7 @@ package com.jetpack.mvvm.frame.extensions
 
 import com.jetpack.mvvm.frame.network.ApiError
 import com.jetpack.mvvm.frame.network.Result
-import com.jetpack.mvvm.frame.network.RetrofitCoroutineBuilder
+import com.jetpack.mvvm.frame.network.RequestApiBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -14,10 +14,10 @@ import kotlinx.coroutines.launch
  * @Email: wangxing1@gwm.cn
  */
 fun <T> CoroutineScope.requestApi(
-    builder: RetrofitCoroutineBuilder<T>.() -> Unit
+    builder: RequestApiBuilder<T>.() -> Unit
 ) {
     this.launch(Dispatchers.Main) {
-        val delegate = RetrofitCoroutineBuilder<T>().apply(builder)
+        val delegate = RequestApiBuilder<T>().apply(builder)
         flow {
             delegate.api.invoke().apply {
                 emit(
