@@ -42,13 +42,13 @@ liveeventbus = "io.github.jeremyliao:live-event-bus-x:1.8.0"
 bindingcollectionadapter2 = { module = "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter", version.ref = "bindingcollectionadapter2" }
 bindingcollectionadapter2-recyclerview = { module = "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview", version.ref = "bindingcollectionadapter2" }
 bindingcollectionadapter2-viewpager2 = { module = "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-viewpager2", version.ref = "bindingcollectionadapter2" }
-timber = "com.jakewharton.timber:timber:5.0.1"
+#timber = "com.jakewharton.timber:timber:5.0.1"
 logger = "com.github.Moon-Ete:logger:v9"
 
 [bundles]
 #hilt = ["hilt-android", "hilt-viewmodel"]
 hilt = ["hilt-android"]
-log = ["timber", "logger"]
+log = ["logger"]
 coroutines = ["coroutines-core", "coroutines-android"]
 retrofit = ["retrofit", "retrofit-log", "retrofit-converter-moshi", "retrofit-converter-gson"]
 lifecycle = ["lifecycle-viewmodel", "lifecycle-livedata", "lifecycle-runtime"]
