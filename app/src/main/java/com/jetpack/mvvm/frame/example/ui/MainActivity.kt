@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
+
     private val binding by viewBindings<ActivityMainBinding>()
 
     private val viewModel by viewModels<MainActivityViewModel>()
