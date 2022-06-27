@@ -87,7 +87,7 @@ internal fun Throwable.convertApiError(): ApiError {
             ex
         }
         else -> {
-            ex = ApiError(UNKNOWN, "未知错误")
+            ex = ApiError(UNKNOWN, this.message ?: "未知错误")
             ex
         }
     }

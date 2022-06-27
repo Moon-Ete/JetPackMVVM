@@ -5,13 +5,15 @@ import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
 import com.jetpack.mvvm.frame.BuildConfig
 import com.jetpack.mvvm.frame.network.UnifiedHeaderInterceptor
+import com.jetpack.mvvm.frame.utils.MoshiUtil
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.time.Duration
 import javax.inject.Singleton
@@ -24,9 +26,22 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object HttpClientModule {
+
+    @Singleton
+    @Provides
+    fun providesMoshi(): Moshi {
+        return MoshiUtil.moshiBuild
+    }
+
+    @Singleton
+    @Provides
+    fun providesMoshiConverterFactory(moshi: Moshi): MoshiConverterFactory {
+        return MoshiConverterFactory.create(moshi)
+    }
+
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun providesOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(UnifiedHeaderInterceptor())
             .addInterceptor(
@@ -44,12 +59,15 @@ object HttpClientModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun providesRetrofit(
+        okHttpClient: OkHttpClient,
+        moshiConverterFactory: MoshiConverterFactory
+    ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(moshiConverterFactory)
             .build()
     }
+
 }
