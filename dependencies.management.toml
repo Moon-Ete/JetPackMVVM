@@ -33,6 +33,7 @@ lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", versi
 lifecycle-compiler = { module = "androidx.lifecycle:lifecycle-compiler", version.ref = "lifecycle" }
 androidx-core = "androidx.core:core-ktx:1.8.0"
 androidx-activity = "androidx.activity:activity-ktx:1.4.0"
+androidx-annotation = "androidx.annotation:annotation:1.4.0"
 androidx-fragment = "androidx.fragment:fragment-ktx:1.4.1"
 androidx-appcompat = "androidx.appcompat:appcompat:1.4.2"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
@@ -53,7 +54,7 @@ coroutines = ["coroutines-core", "coroutines-android"]
 retrofit = ["retrofit", "retrofit-log", "retrofit-converter-moshi", "retrofit-converter-gson"]
 lifecycle = ["lifecycle-viewmodel", "lifecycle-livedata", "lifecycle-runtime"]
 bindingcollectionadapter2 = ["bindingcollectionadapter2", "bindingcollectionadapter2-recyclerview", "bindingcollectionadapter2-viewpager2"]
-androidx = ["androidx-core", "androidx-activity", "androidx-fragment", "androidx-appcompat", "androidx-constraintlayout", "androidx-startup"]
+androidx = ["androidx-core", "androidx-activity", "androidx-annotation", "androidx-fragment", "androidx-appcompat", "androidx-constraintlayout", "androidx-startup"]
 #kapts = ["hilt-compiler", "hilt-android-compiler", "moshi-compiler", "glide-compiler", "lifecycle-compiler"]
 kapts = ["hilt-android-compiler", "moshi-compiler", "glide-compiler", "lifecycle-compiler"]
 
