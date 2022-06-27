@@ -4,6 +4,7 @@ import android.util.Log.VERBOSE
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
 import com.jetpack.mvvm.frame.BuildConfig
+import com.jetpack.mvvm.frame.network.UnifiedHeaderInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,6 +28,7 @@ object HttpClientModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(UnifiedHeaderInterceptor())
             .addInterceptor(
                 LoggingInterceptor.Builder()
                     .setLevel(if (BuildConfig.DEBUG) Level.BASIC else Level.NONE)

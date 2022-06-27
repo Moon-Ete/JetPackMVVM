@@ -1,8 +1,7 @@
 package com.jetpack.mvvm.frame.extensions
 
-import com.jetpack.mvvm.frame.network.ApiError
-import com.jetpack.mvvm.frame.network.Result
 import com.jetpack.mvvm.frame.network.RequestApiBuilder
+import com.jetpack.mvvm.frame.network.Result
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -20,13 +19,7 @@ fun <T> CoroutineScope.requestApi(
         val delegate = RequestApiBuilder<T>().apply(builder)
         flow {
             delegate.api.invoke().apply {
-                emit(
-                    if (success) {
-                        Result.Success(data)
-                    } else {
-                        Result.Error(ApiError(errorCode, errorMessage))
-                    }
-                )
+                emit(convertResult())
             }
         }
             .onStart {

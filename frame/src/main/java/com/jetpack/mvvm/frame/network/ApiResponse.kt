@@ -2,8 +2,6 @@ package com.jetpack.mvvm.frame.network
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
 
 /**
  * @Author: WangXing
@@ -12,8 +10,13 @@ import kotlinx.coroutines.coroutineScope
  */
 @JsonClass(generateAdapter = true)
 data class ApiResponse<T>(
-    @Json(name = "success") var success: Boolean,
-    @Json(name = "errorCode") var errorCode: String,
-    @Json(name = "errorMessage") var errorMessage: String?,
+    @Json(name = "code") var code: String,
+    @Json(name = "msg") var errorMessage: String,
     @Json(name = "data") var data: T?
-)
+) {
+    fun convertResult() = if (code == "00000") {
+        Result.Success(data)
+    } else {
+        Result.Error(ApiError(code, errorMessage))
+    }
+}

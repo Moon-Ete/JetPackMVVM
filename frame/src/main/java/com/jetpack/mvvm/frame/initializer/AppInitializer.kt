@@ -5,6 +5,7 @@ import androidx.startup.Initializer
 import com.jeremyliao.liveeventbus.LiveEventBus
 import com.jetpack.mvvm.frame.BuildConfig
 import com.orhanobut.logger.*
+import com.tencent.mmkv.MMKV
 
 
 /**
@@ -31,7 +32,8 @@ class AppInitializer : Initializer<Unit> {
             .config()
             .autoClear(true)
             .enableLogger(BuildConfig.DEBUG)
-            .lifecycleObserverAlwaysActive(true);
+            .lifecycleObserverAlwaysActive(true)
+        MMKV.initialize(context)
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()
