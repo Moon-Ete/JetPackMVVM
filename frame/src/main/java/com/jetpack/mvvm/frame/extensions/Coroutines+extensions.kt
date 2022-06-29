@@ -22,13 +22,13 @@ fun <T> CoroutineScope.requestApi(
                 emit(convertResult())
             }
         }
+            .flowOn(Dispatchers.IO)
             .onStart {
                 delegate.onStart?.invoke()
             }
             .onCompletion {
                 delegate.onComplete?.invoke()
             }
-            .flowOn(Dispatchers.IO)
             .catch {
                 emit(Result.Error(it.convertApiError()))
             }
